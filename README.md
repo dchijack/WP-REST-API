@@ -6,15 +6,15 @@
 
 ![V微语录](https://github.com/dchijack/WP-REST-API-PRO/blob/master/vyulu.jpg)
 
-微语录
-
 ![国际航空查询](https://github.com/dchijack/WP-REST-API-PRO/blob/master/cazixun.jpg)
-
-国际航空查询
 
 ![艾码汇](https://github.com/dchijack/WP-REST-API-PRO/blob/master/imahui.jpg)
 
-艾码汇
+# 使用方法
+
+点击右上角绿色 Clone or download 下拉选项，点击 Download ZIP。
+
+解压下载的压缩包，把 WP-REST-API 目录上传至 WordPress 插件目录，并在网站后台插件启用。
 
 ## 后台设置
 
