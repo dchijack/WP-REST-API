@@ -1,17 +1,17 @@
 <?php
 /*
-Plugin Name: WP Rest Pro
-Plugin URI: https://github.com/iamxjb/wp-rest-api-for-app
+Plugin Name: WP REST API
+Plugin URI: https://github.com/dchijack/WP-REST-API-PRO
 Description: WordPress REST API 定制版。WordPress + 微信小程序，优化代码，简化API。
 Version: 3.0
-Author: jianbo <a href="https://www.imahui.com">艾码汇</a> Date:2018.07.31
+Author: jianbo <a href="https://www.imahui.com">艾码汇</a> Date:2018.08.30
 Author URI: http://www.watch-life.net
 License: GPL v3
 */
 // 定义插件目录
 define('WP_REST_API_PRO', plugin_dir_path(__FILE__));
 // 插件函数调用
-include(WP_REST_API_PRO.'/functions.php');
+include(WP_REST_API_PRO.'functions.php');
 // 插件设置面板
 function settings_panel() { 
 	global $themename, $version, $options;
@@ -52,7 +52,8 @@ function settings_panel() {
 <div class="option">
 <select name="<?php echo $value['id']; ?>" id="<?php echo $value['id']; ?>">
 <?php foreach ($value['options'] as $option) { ?>
-<option <?php if (get_option( $value['id'] ) == $option) { echo 'selected="selected"'; } ?>><?php echo $option; ?></option><?php } ?>
+<option <?php if (get_option( $value['id'] ) == $option) { echo 'selected="selected"'; } ?>><?php echo $option; ?></option>
+<?php } ?>
 </select>
 <?php if (!empty($value['desc'])) { echo '<small>'.$value['desc'].'</small>'; } ?>
 <div class="clearfix"></div>
@@ -65,6 +66,14 @@ function settings_panel() {
 <?php if(get_option($value['id'])){ $checked = "checked=\"checked\""; $checkvalue = "true"; }else{ $checked = ""; $checkvalue = $value['std'];} ?>
 <input type="checkbox" name="<?php echo $value['id']; ?>" id="<?php echo $value['id']; ?>" value="<?php echo $checkvalue; ?>" <?php echo $checked; ?> />
 <?php if (!empty($value['desc'])) { echo '<small>'.$value['desc'].'</small>'; } ?>
+<div class="clearfix"></div>
+</div>
+</div>
+<?php break; case "page": ?>
+<div id="section_<?php echo $value['id']; ?>">
+<h4 class="heading"><?php echo $value['name']; ?></h4>
+<div class="option">
+<?php if (!empty($value['desc'])) { echo $value['desc']; } ?>
 <div class="clearfix"></div>
 </div>
 </div>

@@ -18,18 +18,18 @@ function getEnableComment($data) {
 	return $response;
 }
 function get_enableComment_data() {
-    $en_comments  =get_option('encomments');
-    if (empty($en_comments)) {
+    $en_comments = get_setting_option('encomments');
+    if ($en_comments) {
         $result["code"]="success";
         $result["message"]="get enableComment success";
         $result["status"]="200";
-        $result["encomments"]="false";
+        $result["encomments"]='true';
         return $result;
     } else {
         $result["code"]="success";
         $result["message"]="get enableComment success";
         $result["status"]="200";
-        $result["encomments"]="true";
+        $result["encomments"]='false';
         return $result;
     }
 }
@@ -39,7 +39,7 @@ function rest_comments_custom_fields( $data, $comment, $request) {
     global $wpdb;
     $_data=$data->data;  
     $comment_id=$comment->comment_ID;
-    $sql=$wpdb->prepare("SELECT t2.comment_author as parent_name,t2.comment_date as parent_date ,t1.user_id as user_id,(SELECT t3.meta_value from ".$wpdb->commentmeta." t3 where t1.comment_ID = t3.comment_id AND t3.meta_key = 'formId')  AS formId  from ".$wpdb->comments." t1 LEFT JOIN ".$wpdb->comments." t2 on t1.comment_parent=t2.comment_ID WHERE t1.comment_ID=%d",$comment_id); // 修复 SQL 注入漏洞
+    $sql=$wpdb->prepare("SELECT t2.comment_author as parent_name,t2.comment_date as parent_date ,t1.user_id as user_id,(SELECT t3.meta_value from ".$wpdb->commentmeta." t3 where t1.comment_ID = t3.comment_id AND t3.meta_key = 'formId')  AS formId  from ".$wpdb->comments." t1 LEFT JOIN ".$wpdb->comments." t2 on t1.comment_parent=t2.comment_ID WHERE t1.comment_ID=%d",$comment_id);
 	$comment=$wpdb->get_row($sql);
     $userid=$comment->user_id;
     $parent_name=$comment->parent_name;
@@ -84,7 +84,7 @@ function get_most_comments_post_data($limit = 10) {
 	global $wpdb, $post;
     $today = date("Y-m-d H:i:s"); // 获取当天日期时间   
     $limit_date = date("Y-m-d H:i:s", strtotime("-1 year")); // 获取指定日期时间
-    $sql="SELECT ".$wpdb->posts.".ID as ID, post_title, post_name,post_content,post_date, COUNT(".$wpdb->comments.".comment_post_ID) AS 'comment_total' FROM ".$wpdb->posts." LEFT JOIN ".$wpdb->comments." ON ".$wpdb->posts.".ID = ".$wpdb->comments.".comment_post_ID WHERE comment_approved = '1' AND post_date BETWEEN '".$limit_date."' AND '".$today."' AND post_status = 'publish' AND post_password = '' GROUP BY ".$wpdb->comments.".comment_post_ID ORDER BY comment_total DESC LIMIT ".$limit;
+	$sql=$wpdb->prepare("SELECT ".$wpdb->posts.".ID as ID, post_title, post_name,post_content,post_date, COUNT(".$wpdb->comments.".comment_post_ID) AS 'comment_total' FROM ".$wpdb->posts." LEFT JOIN ".$wpdb->comments." ON ".$wpdb->posts.".ID = ".$wpdb->comments.".comment_post_ID WHERE comment_approved = '1' AND post_date BETWEEN '".$limit_date."' AND '".$today."' AND post_status = 'publish' AND post_password = '' GROUP BY ".$wpdb->comments.".comment_post_ID ORDER BY comment_total DESC LIMIT %d",$limit);
 	$mostcommenteds = $wpdb->get_results($sql);
     $posts =array();
     foreach ($mostcommenteds as $post) {
@@ -100,18 +100,18 @@ function get_most_comments_post_data($limit = 10) {
         $_data["id"]  = $post_id;
 		$_data["title"]["rendered"] = $post_title;
 		$_data["date"] = $post_date;
-		$_data["link"] =$post_permalink;
+		$_data["link"] = $post_permalink;
 		$_data['comments']= $post_comment;
 		$_data['thumbses'] = $post_thumbs;
-		if (get_option('post_meta')) {
+		if (get_setting_option('post_meta')) {
 			$_data["thumbnail"] = $post_thumbnail;
 			$_data["views"] = $post_views;
 		}
 		//--------------------自定义标签-----------------------------
-		if (!get_option('post_meta')) {
+		if (!get_setting_option('post_meta')) {
 			$_data["meta"]["thumbnail"] = $post_thumbnail;
 			$_data['meta']["views"] = $post_views;
-			$metastr = get_option('meta_list');
+			$metastr = get_setting_option('meta_list');
 			if (!empty($metastr)) {
 				$metaarr = explode(',',$metastr);
 				foreach ($metaarr as $value) {
@@ -146,8 +146,8 @@ function getNewCommentsPosts($data) {
 // 获取近期评论文章
 function get_new_comments_post_data($limit = 10) {
     global $wpdb, $post;
-    $sql = "SELECT ".$wpdb->posts.".ID as ID, post_title, post_name, post_excerpt, post_content, post_date, COUNT(".$wpdb->comments.".comment_post_ID) AS 'comment_total' FROM ".$wpdb->posts." LEFT JOIN ".$wpdb->comments." ON ".$wpdb->posts.".ID = ".$wpdb->comments.".comment_post_ID WHERE comment_approved = '1' AND post_date < '".date("Y-m-d H:i:s", (time() + ($time_difference * 3600)))."'AND post_status = 'publish' AND post_password = '' GROUP BY ".$wpdb->comments.".comment_post_ID ORDER BY comment_date DESC LIMIT ".$limit;
-    $recentcomments = $wpdb->get_results($sql);
+    $sql = $wpdb->prepare("SELECT ".$wpdb->posts.".ID as ID, post_title, post_name, post_excerpt, post_content, post_date, COUNT(".$wpdb->comments.".comment_post_ID) AS 'comment_total' FROM ".$wpdb->posts." LEFT JOIN ".$wpdb->comments." ON ".$wpdb->posts.".ID = ".$wpdb->comments.".comment_post_ID WHERE comment_approved = '1' AND post_date < '".date("Y-m-d H:i:s", (time() + ($time_difference * 3600)))."'AND post_status = 'publish' AND post_password = '' GROUP BY ".$wpdb->comments.".comment_post_ID ORDER BY comment_date DESC LIMIT %d",$limit);
+	$recentcomments = $wpdb->get_results($sql);
     $posts =array();  
     foreach ($recentcomments as $post) {
 		$post_id = (int) $post->ID;
@@ -159,23 +159,23 @@ function get_new_comments_post_data($limit = 10) {
         $post_permalink = get_permalink($post->ID);
 		$post_thumbnail = get_post_thumbnail($post_id);
 		$sql_thumbs = $wpdb->prepare("SELECT COUNT(1) FROM ".$wpdb->postmeta." where meta_value='thumbs' and post_id=%d",$post_id);
-		$post_thumbs = $wpdb->get_var($sql_thumbs); // 修复 SQL 注入漏洞		
+		$post_thumbs = $wpdb->get_var($sql_thumbs);	
 		$_data["id"]  = $post_id;
 		$_data["title"]["rendered"] = $post_title;
-		if (!get_option('post_excerpt')) { $_data["excerpt"]["rendered"] = $post_excerpt; }
+		if (!get_setting_option('post_excerpt')) { $_data["excerpt"]["rendered"] = $post_excerpt; }
 		$_data["date"] = $post_date;
 		$_data["link"] =$post_permalink;
 		$_data['comments']= $post_comment;
 		$_data['thumbses'] = $post_thumbs;
-		if (get_option('post_meta')) {
+		if (get_setting_option('post_meta')) {
 			$_data["thumbnail"] = $post_thumbnail;
 			$_data["views"] = $post_views;
 		}
 		//--------------------自定义标签-----------------------------
-		if (!get_option('post_meta')) {
+		if (!get_setting_option('post_meta')) {
 			$_data["meta"]["thumbnail"] = $post_thumbnail;
 			$_data['meta']["views"] = $post_views;
-			$metastr = get_option('meta_list');
+			$metastr = get_setting_option('meta_list');
 			if (!empty($metastr)) {
 				$metaarr = explode(',',$metastr);
 				foreach ($metaarr as $value) {
@@ -218,14 +218,14 @@ function getcomments($request) {
 function get_comments_data($postid,$limit,$page,$order) {
 	global $wpdb;
 	$page=($page-1)*$limit;
-	$sql=$wpdb->prepare("SELECT t.*,(SELECT t2.meta_value  from ".$wpdb->commentmeta." t2 where t.comment_ID = t2.comment_id AND t2.meta_key = 'formId') AS formId FROM ".$wpdb->comments." t WHERE t.comment_post_ID = %d and t.comment_parent=0 and t.comment_approved='1' order by t.comment_date ".$order." limit %d,%d",$postid,$page,$limit); // 修复 SQL 注入漏洞
+	$sql=$wpdb->prepare("SELECT t.*,(SELECT t2.meta_value  from ".$wpdb->commentmeta." t2 where t.comment_ID = t2.comment_id AND t2.meta_key = 'formId') AS formId FROM ".$wpdb->comments." t WHERE t.comment_post_ID = %d and t.comment_parent=0 and t.comment_approved='1' order by t.comment_date ".$order." limit %d,%d",$postid,$page,$limit);
 	$comments = $wpdb->get_results($sql); 
 	$commentslist  =array();
 	foreach($comments as $comment){
 		if($comment->comment_parent==0){
 			$data["id"]=$comment->comment_ID;
 			$data["author_name"]=$comment->comment_author;
-			$author_url =$comment->comment_author_url;
+			$author_url=$comment->comment_author_url;
 			$data["author_url"]=strpos($author_url, "wx.qlogo.cn")?$author_url:"../../images/gravatar.png";
 			$data["date"]=time_tran($comment->comment_date);
 			$data["content"]=$comment->comment_content;
@@ -237,7 +237,7 @@ function get_comments_data($postid,$limit,$page,$order) {
 		}
 	}
 	$result["code"]="success";
-    $result["message"]= "get  comments success";
+    $result["message"]="get comments success";
     $result["status"]="200";
     $result["data"]=$commentslist;              
     return $result;         
@@ -246,19 +246,19 @@ function getchaildcomment($postid,$comment_id,$limit,$order) {
 	global $wpdb;
 	if ($limit>0) {
 		$commentslist  =array();
-		$sql=$wpdb->prepare("SELECT t.*,(SELECT t2.meta_value  from ".$wpdb->commentmeta." t2 where t.comment_ID = t2.comment_id  AND t2.meta_key = 'formId') AS formId FROM ".$wpdb->comments." t WHERE t.comment_post_ID = %d and t.comment_parent=%d and t.comment_approved='1' order by comment_date ".$order,$postid,$comment_id); // 修复 SQL 注入漏洞
+		$sql=$wpdb->prepare("SELECT t.*,(SELECT t2.meta_value  from ".$wpdb->commentmeta." t2 where t.comment_ID = t2.comment_id  AND t2.meta_key = 'formId') AS formId FROM ".$wpdb->comments." t WHERE t.comment_post_ID = %d and t.comment_parent=%d and t.comment_approved='1' order by comment_date ".$order,$postid,$comment_id);
 		$comments = $wpdb->get_results($sql); 
 		foreach($comments as $comment){						
-				$data["id"]=$comment->comment_ID;
-				$data["author_name"]=$comment->comment_author;
-				$author_url =$comment->comment_author_url;
-				$data["author_url"]=strpos($author_url, "wx.qlogo.cn")?$author_url:"../../images/gravatar.png";
-				$data["date"]=time_tran($comment->comment_date);
-				$data["content"]=$comment->comment_content;
-				$data["formId"]=$comment->formId;
-				$data["userid"]=$comment->user_id;
-				$data["child"]=getchaildcomment($postid,$comment->comment_ID,$limit-1,$order);
-				$commentslist[] =$data;			
+			$data["id"]=$comment->comment_ID;
+			$data["author_name"]=$comment->comment_author;
+			$author_url =$comment->comment_author_url;
+			$data["author_url"]=strpos($author_url, "wx.qlogo.cn")?$author_url:"../../images/gravatar.png";
+			$data["date"]=time_tran($comment->comment_date);
+			$data["content"]=$comment->comment_content;
+			$data["formId"]=$comment->formId;
+			$data["userid"]=$comment->user_id;
+			$data["child"]=getchaildcomment($postid,$comment->comment_ID,$limit-1,$order);
+			$commentslist[]=$data;			
 		}
 	}
 	return $commentslist;
@@ -328,6 +328,7 @@ function add_comment_data($post,$author_name,$author_email,$author_url,$content,
 	global $wpdb;
     $user_id =0;
     $useropenid="";
+	$approved = get_setting_option('approved');
 	$sql = $wpdb->prepare("SELECT ID FROM ".$wpdb->users." WHERE user_login='%s'",$openid);
     $users = $wpdb->get_results($sql);
     foreach ($users as $user) {
@@ -341,7 +342,7 @@ function add_comment_data($post,$author_name,$author_email,$author_url,$content,
         'comment_content' => $content, //fixed value - can be dynamic 
         'comment_type' => '', //empty for regular comments, 'pingback' for pingbacks, 'trackback' for trackbacks
         'comment_parent' => $parent, //0 if it's not a reply to another comment; if it's a reply, mention the parent comment ID here
-		'comment_approved' => 1, // Whether the comment has been approved
+		'comment_approved' => $approved?0:1, // Whether the comment has been approved
         'user_id' => $user_id, //passing current user ID or any predefined as per the demand
     );
     $comment_id = wp_insert_comment( wp_filter_comment($commentdata));
@@ -382,7 +383,6 @@ add_action( 'rest_api_init', function () {
 	));
 });
 function getcomment($request) {
-    //$openid = $request['openid'];
 	$openid = isset($request['openid'])?$request['openid']:'';
     if(empty($openid)) {
         return new WP_Error( 'error', 'openid  is  empty', array( 'status' => 500 ) );
@@ -403,7 +403,7 @@ function getcomment($request) {
 function get_comment_data($openid){
 	global $wpdb;
     $user_id = 0;
-	$sql = $wpdb->prepare("SELECT ID FROM ".$wpdb->users ." WHERE user_login='%s'",$openid); // 修复 SQL 注入漏洞
+	$sql = $wpdb->prepare("SELECT ID FROM ".$wpdb->users ." WHERE user_login='%s'",$openid);
     $users = $wpdb->get_results($sql);
     foreach ($users as $user) {
         $user_id = (int)$user->ID;
@@ -414,16 +414,16 @@ function get_comment_data($openid){
         $result["status"]="500";                   
         return $result;
     } else {
-        $sql = "SELECT * from ".$wpdb->posts." where ID in (SELECT comment_post_ID from ".$wpdb->comments." where user_id=".$user_id." GROUP BY comment_post_ID order by comment_date ) LIMIT 10";
-        $_posts = $wpdb->get_results($sql);
+        $sql = $wpdb->prepare("SELECT * from ".$wpdb->posts." where ID in (SELECT comment_post_ID from ".$wpdb->comments." where user_id=%s GROUP BY comment_post_ID order by comment_date ) LIMIT 10",$user_id);
+		$_posts = $wpdb->get_results($sql);
         $posts =array();
         foreach ($_posts as $post) {
             $_data["id"]  = $post->ID;
             $_data["title"]["rendered"] = $post->post_title;
-			if (!get_option('post_meta')) {
+			if (!get_setting_option('post_meta')) {
 				$_data["meta"]["thumbnail"] = get_post_meta( $post->ID, 'thumbnail' ,true );
 				$_data['meta']["views"] = get_post_meta( $post->ID, 'views' ,true );
-				$metastr = get_option('meta_list');
+				$metastr = get_setting_option('meta_list');
 				if (!empty($metastr)) {
 					$metaarr = explode(',',$metastr);
 					foreach ($metaarr as $value) {

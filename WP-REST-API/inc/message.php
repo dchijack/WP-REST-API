@@ -39,8 +39,8 @@ function sendmessage($request) {
     }
 }
 function send_message_data($openid,$template_id,$postid,$form_id,$total_fee,$flag,$fromUser,$parent) {
-	$appid = get_option('appid');
-    $appsecret = get_option('secretkey');
+	$appid = get_setting_option('appid');
+    $appsecret = get_setting_option('secretkey');
     $page='';
     if($flag =='1' || $flag=='2') {
         $total_fee= $total_fee.'元';
@@ -70,7 +70,7 @@ function send_message_data($openid,$template_id,$postid,$form_id,$total_fee,$fla
 						"color" =>"#173177"
                     ),
                     "keyword2"=>array(
-                        "value"=>'谢谢你的赞赏,你的支持,是我前进的动力.',
+                        "value"=> get_setting_option('prasie'),
                         "color"=> "#173177"
                     )
                 );  

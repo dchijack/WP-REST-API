@@ -21,7 +21,7 @@ function get_post_thumbnail($post_id){
 			$expired = 604800;
 			$post_thumbnail = $post_img_src;
 		} else {
-			$post_thumbnail = get_option('prefix');
+			$post_thumbnail = get_setting_option('prefix');
 		}
 		return $post_thumbnail;
     }

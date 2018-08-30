@@ -62,7 +62,7 @@ function get_most_views_post_data($limit = 10) {
     global $wpdb, $post;
     $today=date("Y-m-d H:i:s"); // 获取当天日期时间   
     $limit_date=date("Y-m-d H:i:s", strtotime("-1 year"));  // 获取指定日期时间
-    $sql="SELECT ".$wpdb->posts.".ID as ID, post_title, post_name,post_excerpt,post_content,post_date, CONVERT(".$wpdb->postmeta.".meta_value,SIGNED) AS 'views_total' FROM ".$wpdb->posts." LEFT JOIN ".$wpdb->postmeta." ON ".$wpdb->posts.".ID = ".$wpdb->postmeta.".post_id WHERE ".$wpdb->postmeta.".meta_key = 'views' AND post_date BETWEEN '".$limit_date."' AND '".$today."' AND post_status = 'publish' AND post_password = '' ORDER  BY views_total DESC LIMIT ". $limit;
+	$sql=$wpdb->prepare("SELECT ".$wpdb->posts.".ID as ID, post_title, post_name,post_excerpt,post_content,post_date, CONVERT(".$wpdb->postmeta.".meta_value,SIGNED) AS 'views_total' FROM ".$wpdb->posts." LEFT JOIN ".$wpdb->postmeta." ON ".$wpdb->posts.".ID = ".$wpdb->postmeta.".post_id WHERE ".$wpdb->postmeta.".meta_key = 'views' AND post_date BETWEEN '".$limit_date."' AND '".$today."' AND post_status = 'publish' AND post_password = '' ORDER  BY views_total DESC LIMIT %d",$limit);
     $hotviews = $wpdb->get_results($sql);
     $posts=array();
     foreach ($hotviews as $post) {
@@ -79,20 +79,20 @@ function get_most_views_post_data($limit = 10) {
 		$post_comment = $wpdb->get_var($sql_comment);
         $_data["id"]  = $post_id;
 		$_data["title"]["rendered"] = $post_title;
-		if (!get_option('post_excerpt')) { $_data["excerpt"]["rendered"] = $post_excerpt; }
+		if (!get_setting_option('post_excerpt')) { $_data["excerpt"]["rendered"] = $post_excerpt; }
 		$_data["date"] = $post_date;
 		$_data["link"] =$post_permalink;
 		$_data['comments']= $post_comment;
 		$_data['thumbses'] = $post_thumbs;
-		if (get_option('post_meta')) {
+		if (get_setting_option('post_meta')) {
 			$_data["thumbnail"] = $post_thumbnail;
 			$_data["views"] = $post_views;
 		}
 		//--------------------自定义标签-----------------------------
-		if (!get_option('post_meta')) {
+		if (!get_setting_option('post_meta')) {
 			$_data["meta"]["thumbnail"] = $post_thumbnail;
 			$_data['meta']["views"] = $post_views;
-			$metastr = get_option('meta_list');
+			$metastr = get_setting_option('meta_list');
 			if (!empty($metastr)) {
 				$metaarr = explode(',',$metastr);
 				foreach ($metaarr as $value) {

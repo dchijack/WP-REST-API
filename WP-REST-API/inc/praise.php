@@ -43,7 +43,7 @@ function post_praise_data($openid,$postid,$orderid,$money){
         return $result;
     } else {
         $result["code"]="success";
-        $result["message"]= "post praise error";
+        $result["message"]="post praise error";
         $result["status"]="500";                   
         return $result;
     } 
@@ -84,7 +84,7 @@ function post_mypraise_data($openid) {
         $posts[]=$_data;
     }
     $result["code"]="success";
-    $result["message"]= "get my praise success";
+    $result["message"]="get my praise success";
     $result["status"]="200";
     $result["data"]=$posts;                   
      return $result;         
@@ -116,7 +116,7 @@ function post_allpraise_data() {
         $result["avatarurls"]=$avatarurls;   
     } else {
         $result["code"]="success";
-        $result["message"]= "post all praise error";
+        $result["message"]="post all praise error";
         $result["status"]="500";                   
         return $result;
     }                     

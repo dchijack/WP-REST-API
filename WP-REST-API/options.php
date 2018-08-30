@@ -1,7 +1,8 @@
 <?php
 // 插件参数选项
+include(WP_REST_API_PRO.'guide.php');
 $themename = "小程序设置选项";
-$version = "2018.7.31";
+$version = "2018.8.30";
 $options = array();
 $options[] = array (
 	"name" => $themename,
@@ -39,13 +40,28 @@ $options[] = array(
 $options[] = array(
 	"name" => "自定义栏目",
     "id" => "meta_list",
-	"desc" => "自定义标签 Key , 使用英文 ',' 逗号隔开",
+	"desc" => "自定义标签 Key , 使用英文 ',' 逗号隔开;如有填写，请注意辅助选项不要禁止 meta 标签",
     "type" => "text",
 	"std" => "");
+	
+$options[] = array(
+	"name" => "赞赏消息",
+    "id" => "prasie",
+	"desc" => "用户赞赏后推送消息的感谢语",
+    "type" => "text",
+	"class" => "imglink",
+	"std" => "谢谢赞赏，你的赞赏是我前进的动力");
+	
+$options[] = array(
+	"name" => "微信用户分组",
+    "desc" => "subscriber：订阅者,contributor：投稿者,author：作者,editor：编辑",
+    "id" => "use_role",
+    "type" => "select",
+    'options' => array('subscriber','contributor','author','editor'));
 
 $options[] = array(
-	"name" => "默认海报",
-	"desc" => "说明：默认生成海报宣传头图",
+	"name" => "默认缩略图",
+	"desc" => "说明：默认缩略图，同时也是海报生成头图",
 	"id" => "prefix",
 	"type" => "text",
 	"class" => "imglink",
@@ -70,8 +86,15 @@ $options[] = array(
 	
 $options[] = array(
 	"name" => "",
+    "id" => "approved",
+	"desc" => "是否开启小程序评论审核",
+    "type" => "checkbox",
+	"std" => "false");
+	
+$options[] = array(
+	"name" => "",
     "id" => "user_sers",
-	"desc" => "是否禁用小程序用户列表 API",
+	"desc" => "是否禁用小程序用户列表",
     "type" => "checkbox",
 	"std" => "false");
 	
@@ -143,10 +166,10 @@ $options[] = array(
 
 $options[] = array(
 	"name" => "首页广告类型",
-    "desc" => "",
+    "desc" => "wechat:微信广告组件,minapp:小程序广告,picture:活动广告",
     "id" => "index_option",
     "type" => "select",
-    'options' => array('minapp','picture'));
+    'options' => array('wechat','minapp','picture'));
 	
 $options[] = array(
 	"name" => "",
@@ -158,7 +181,7 @@ $options[] = array(
 	
 $options[] = array(
 	"name" => "",
-	"desc" => "说明：类型为 minapp 时,请填写广告链接路径;类型为 picture 时,请留空",
+	"desc" => "说明：类型为 minapp 时,请填写广告链接路径;类型为 wechat 和 picture 时,请留空",
     "id" => "index_adpage",
     "type" => "text",
 	"class" => "intext",
@@ -166,7 +189,7 @@ $options[] = array(
 	
 $options[] = array(
 	"name" => "",
-	"desc" => "说明：类型为 minapp 时,请填写小程序 appid ; 类型为 picture 时,请填写广告电话号码",
+	"desc" => "说明：类型为 wechat 时,请填写小程序 单元id ;类型为 minapp 时,请填写小程序 appid ; 类型为 picture 时,请填写广告电话号码",
     "id" => "index_adnum",
     "type" => "text",
 	"std" => "");
@@ -180,10 +203,10 @@ $options[] = array(
 
 $options[] = array(
 	"name" => "列表页广告类型",
-    "desc" => "",
+    "desc" => "wechat:微信广告组件,minapp:小程序广告,picture:活动广告",
     "id" => "list_option",
     "type" => "select",
-    'options' => array('minapp','picture'));
+    'options' => array('wechat','minapp','picture'));
 	
 $options[] = array(
 	"name" => "",
@@ -195,7 +218,7 @@ $options[] = array(
 	
 $options[] = array(
 	"name" => "",
-	"desc" => "说明：类型为 minapp 时,请填写广告链接路径;类型为 picture 时,请留空",
+	"desc" => "说明：类型为 minapp 时,请填写广告链接路径;类型为 wechat 和 picture 时,请留空",
     "id" => "list_adpage",
     "type" => "text",
 	"class" => "intext",
@@ -203,7 +226,7 @@ $options[] = array(
 	
 $options[] = array(
 	"name" => "",
-	"desc" => "说明：类型为 minapp 时,请填写小程序 appid ; 类型为 picture 时,请填写广告电话号码",
+	"desc" => "说明：类型为 wechat 时,请填写小程序 单元id ;类型为 minapp 时,请填写小程序 appid ; 类型为 picture 时,请填写广告电话号码",
     "id" => "list_adnum",
     "type" => "text",
 	"std" => "");
@@ -217,10 +240,10 @@ $options[] = array(
 
 $options[] = array(
 	"name" => "详情页广告类型",
-    "desc" => "",
+    "desc" => "wechat:微信广告组件,minapp:小程序广告,picture:活动广告",
     "id" => "detail_option",
     "type" => "select",
-    'options' => array('minapp','picture'));
+    'options' => array('wechat','minapp','picture'));
 	
 $options[] = array(
 	"name" => "",
@@ -232,7 +255,7 @@ $options[] = array(
 	
 $options[] = array(
 	"name" => "",
-	"desc" => "说明：类型为 minapp 时,请填写广告链接路径;类型为 picture 时,请留空",
+	"desc" => "说明：类型为 minapp 时,请填写广告链接路径;类型为 wechat 和 picture 时,请留空",
     "id" => "detail_adpage",
     "type" => "text",
 	"class" => "intext",
@@ -240,10 +263,24 @@ $options[] = array(
 	
 $options[] = array(
 	"name" => "",
-	"desc" => "说明：类型为 minapp 时,请填写小程序 appid ; 类型为 picture 时,请填写广告电话号码",
+	"desc" => "说明：类型为 wechat 时,请填写小程序 单元id ;类型为 minapp 时,请填写小程序 appid ; 类型为 picture 时,请填写广告电话号码",
     "id" => "detail_adnum",
     "type" => "text",
 	"std" => "");
+
+$options[] = array(	"type" => "close");
+
+$options[] = array(
+	"name" => "API 说明",
+	"type" => "section");
+
+$options[] = array( "type" => "open");
+
+$options[] = array(
+	"name" => "",
+    "id" => "api_read",
+	"desc" => $page,
+    "type" => "page");
 
 $options[] = array(	"type" => "close");
 

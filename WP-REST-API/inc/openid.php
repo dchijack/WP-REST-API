@@ -29,8 +29,9 @@ function getUserOpenid($request) {
     } 
 }
 function post_user_openid_data($js_code,$encryptedData,$iv,$avatarUrl,$nickname) {
-    $appid = get_option('appid');
-    $appsecret = get_option('secretkey');
+    $appid = get_setting_option('appid');
+    $appsecret = get_setting_option('secretkey');
+	$role = get_setting_option('use_role');
     if(empty($appid) || empty($appsecret) ) {
         $result["code"]="success";
         $result["message"]="appid or appsecret is empty";
@@ -49,16 +50,18 @@ function post_user_openid_data($js_code,$encryptedData,$iv,$avatarUrl,$nickname)
                 $errCode = $pc->decryptData($encryptedData, $iv, $data );                   
                 if ($errCode == 0) {
                     if(!username_exists($openid)) {
-                        $data =json_decode($data,true);  
+                        $data =json_decode($data,true);
+                        //$unionId = $data['unionId'];   
                         $userdata = array(
                             'user_login' => $openid,
                             'nickname' => $nickname,
                             'user_nicename' => $nickname,
                             'display_name' => $nickname,
-							'user_email' => $openid.'@qq.com',
+							'user_email' => $passwd.'@qq.com',
 							'wxavatar' => $avatarUrl,
 							'openid' => $openid,
-                            'user_pass' => substr($passwd,8,-8) + substr($openid,10,-10) // 密码
+							'role' => $role,
+                            'user_pass' => $passwd // MD5加密为密码
                         );
                         $user_id = wp_insert_user( $userdata ) ;                    
                         if (is_wp_error( $user_id )) {

@@ -17,9 +17,8 @@ function getPostSwipe($request) {
 }
 function get_swipe_post_data(){
 	global $wpdb;
-    $postSwipeIds = get_option('swipe');
-	$posts =array();
-	//$siteurl= site_url();	      
+    $postSwipeIds = get_setting_option('swipe');
+	$posts =array();    
     if(!empty($postSwipeIds)) {
 		$sql=$wpdb->prepare("SELECT * from ".$wpdb->posts." where id in (%d)",$postSwipeIds);
         $_posts = $wpdb->get_results($sql);
@@ -37,16 +36,16 @@ function get_swipe_post_data(){
 			$post_comment = $wpdb->get_var($sql_comment);
 			$_data["id"]  = $post_id;
 			$_data["title"]["rendered"] = $post_title;
-			if (!get_option('post_excerpt')) { $_data["excerpt"]["rendered"] = $post_excerpt; }
+			if (!get_setting_option('post_excerpt')) { $_data["excerpt"]["rendered"] = $post_excerpt; }
 			$_data["date"] = $post_date;
 			$_data["link"] =$post_permalink;
 			$_data['comments']= $post_comment;
 			$_data['thumbses'] = $post_thumbs;
-			if (get_option('post_meta')) {
+			if (get_setting_option('post_meta')) {
 				$_data["thumbnail"] = $post_thumbnail;
 				$_data["views"] = $post_views;
 			}
-			if (!get_option('post_meta')) {
+			if (!get_setting_option('post_meta')) {
 				$_data["meta"]["thumbnail"] = $post_thumbnail;
 				$_data["meta"]["views"] = $post_views;
 			}

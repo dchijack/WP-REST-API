@@ -21,7 +21,7 @@ function get_random_post_data($limit = 10) {
     global $wpdb, $post;
     $today=date("Y-m-d H:i:s"); // 获取当天日期时间   
     $limit_date=date("Y-m-d H:i:s", strtotime("-1 year"));  // 获取指定日期时间
-	$sql="SELECT ID, post_title,post_date,post_excerpt FROM $wpdb->posts WHERE post_status = 'publish' AND post_title != ''  AND post_password ='' AND post_type = 'post' ORDER BY RAND() LIMIT 0 , $limit";
+	$sql=$wpdb->prepare("SELECT ID, post_title,post_date,post_excerpt FROM $wpdb->posts WHERE post_status = 'publish' AND post_title != '' AND post_password ='' AND post_type = 'post' ORDER BY RAND() LIMIT 0 , %d",$limit);
     $randposts = $wpdb->get_results($sql);
     $posts=array();
     foreach ($randposts as $post) {
@@ -41,20 +41,20 @@ function get_random_post_data($limit = 10) {
 		$_data['category'] = $category[0]->cat_name;
         $_data["id"]  = $post_id;
 		$_data["title"]["rendered"] = $post_title;
-		if (!get_option('post_excerpt')) { $_data["excerpt"]["rendered"] = $post_excerpt; }
+		if (!get_setting_option('post_excerpt')) { $_data["excerpt"]["rendered"] = $post_excerpt; }
 		$_data["date"] = $post_date;
 		$_data["link"] =$post_permalink;
 		$_data['comments']= $post_comment->total_comments;
 		$_data['thumbses'] = $post_thumbs;
-		if (get_option('post_meta')) {
+		if (get_setting_option('post_meta')) {
 			$_data["thumbnail"] = $post_thumbnail;
 			$_data["views"] = $post_views;
 		}
 		//--------------------自定义标签-----------------------------
-		if (!get_option('post_meta')) {
+		if (!get_setting_option('post_meta')) {
 			$_data["meta"]["thumbnail"] = $post_thumbnail;
 			$_data['meta']["views"] = $post_views;
-			$metastr = get_option('meta_list');
+			$metastr = get_setting_option('meta_list');
 			if (!empty($metastr)) {
 				$metaarr = explode(',',$metastr);
 				foreach ($metaarr as $value) {

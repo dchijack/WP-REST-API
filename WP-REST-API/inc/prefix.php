@@ -31,13 +31,11 @@ function getPostQrcode($request) {
     }
 }
 function get_qrcode_data($postid,$path){
-	$qrcode = 'qrcode-'.$postid.'.png';//文章小程序二维码文件名     
-	$qrlink = ABSPATH .'/uploads/qrcode/'.$qrcode;//文章小程序二维码路径,存放在根目录 uploads 文件夹里的 qrcode
-	//小程序 AppId , AppSecret      
-    $appid = get_option('appid');
-    $appsecret = get_option('secretkey');
+	$qrcode = 'qrcode-'.$postid.'.png';// 文章小程序二维码文件名     
+	$qrlink = ABSPATH .'/uploads/qrcode/'.$qrcode;// 文章小程序二维码路径，根目录 uploads 文件夹   
+    $appid = get_setting_option('appid');
+    $appsecret = get_setting_option('secretkey');
     if(!is_file($qrlink)) {
-        //$ACCESS_TOKEN = getAccessToken($appid,$appsecret,$access_token);
         $access_token_url = 'https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid='.$appid.'&secret='.$appsecret;
         $access_token_result = https_request($access_token_url);
         if($access_token_result !="ERROR") {
@@ -58,12 +56,13 @@ function get_qrcode_data($postid,$path){
 						"b" => "0",  //这个颜色码自己到Photoshop里设
 					);
 					$data = array(
-						//$data['scene'] = "scene";//自定义信息，可以填写诸如识别用户身份的字段，注意用中文时的情况
-						//$data['page'] = "pages/index/index";//扫码后对应的path，只能是固定页面
-						'path' => $path, //前端传过来的页面path
-						'width' => intval(100), //设置二维码尺寸
-						'auto_color' => false,
-						'line_color' => $color,
+						//$data['scene'] = "scene"; //自定义信息，可以填写诸如识别用户身份的字段，注意用中文时的情况
+						//$data['page'] = "pages/index/index"; //扫码后对应的path，只能是固定页面
+						'path' => $path, // 前端传过来的页面path,不能为空，最大长度 128 字节
+						'width' => intval(100), // 设置二维码尺寸,二维码的宽度
+						'auto_color' => false, // 自动配置线条颜色，如果颜色依然是黑色，则说明不建议配置主色调
+						'line_color' => $color, // auth_color 为 false 时生效，使用 rgb 设置颜色 例如 {"r":"xxx","g":"xxx","b":"xxx"},十进制表示
+						'is_hyaline' => true, // 是否需要透明底色， is_hyaline 为true时，生成透明底色的小程序码
 					);
 					$data = json_encode($data);
 					//可在此处添加或者减少来自前端的字段
@@ -71,7 +70,6 @@ function get_qrcode_data($postid,$path){
 					if($QRCode !='error') {
 						//输出二维码
 						file_put_contents($qrlink,$QRCode);
-						//imagedestroy($QRCode);
 						$flag=true;
 					}
 				} else {

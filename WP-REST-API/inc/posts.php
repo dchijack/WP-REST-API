@@ -31,16 +31,16 @@ function post_custom_fields_rest($data, $post, $request) {
 	$_data['category'] = $category[0]->cat_name;
 	$_data['comments'] = $post_comment->total_comments;
 	$_data['thumbses'] = $post_thumbs;
-	if (get_option('post_meta')) {
+	if (get_setting_option('post_meta')) {
 		$_data["thumbnail"] = $post_thumbnail;
 		$_data["views"] = $post_views;
 	}
     $_data['avatar']= $avatarurls;
 	//--------------------自定义标签-----------------------------
-	if (!get_option('post_meta')) {
+	if (!get_setting_option('post_meta')) {
 		$_data["meta"]["thumbnail"] = $post_thumbnail;
 		$_data['meta']["views"] = $post_views;
-		$metastr = get_option('meta_list');
+		$metastr = get_setting_option('meta_list');
 		if (!empty($metastr)) {
 			$metaarr = explode(',',$metastr);
 			foreach ($metaarr as $value) {
@@ -75,17 +75,17 @@ function post_custom_fields_rest($data, $post, $request) {
         $_data['post_related']=null;
     }
 	//-----------------------------------------------------------
-	if (get_option('post_prev')) {
+	if (get_setting_option('post_prev')) {
 		$_data['next_id'] = !empty($next_post->ID)?$next_post->ID:null;
 		$_data['next_title'] = !empty($next_post->post_title)?$next_post->post_title:null;
 		$_data['previous_id'] = !empty($previous_post->ID)?$previous_post->ID:null;
 		$_data['previous_title'] = !empty($previous_post->post_title)?$previous_post->post_title:null;
 	}
-	if (get_option('post_excerpt')) {unset($_data['excerpt']);}
-	if (get_option('post_meta')) {unset($_data['meta']); }
-    if (get_option('post_format')) {unset($_data['format']);}
-	if (get_option('post_type')) {unset($_data['type']);}
-	if (get_option('post_author')) {unset($_data['author']);} else {$_data['author'] = get_the_author_meta('display_name',$post->post_author);} // 显示文章作者昵称
+	if (get_setting_option('post_excerpt')) {unset($_data['excerpt']);}
+	if (get_setting_option('post_meta')) {unset($_data['meta']); }
+    if (get_setting_option('post_format')) {unset($_data['format']);}
+	if (get_setting_option('post_type')) {unset($_data['type']);}
+	if (get_setting_option('post_author')) {unset($_data['author']);} else {$_data['author'] = get_the_author_meta('display_name',$post->post_author);} // 显示文章作者昵称
 	unset($_data['featured_media']);
     unset($_data['ping_status']);
     unset($_data['template']);

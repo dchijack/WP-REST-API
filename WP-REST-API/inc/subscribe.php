@@ -1,7 +1,7 @@
 <?php
 // 订阅分类
 add_action( 'rest_api_init', function () {
-  register_rest_route( 'wechat/v1', 'category/subscription', array(
+  register_rest_route( 'wechat/v1', 'category/sub', array(
     'methods' => 'POST',
     'callback' => 'SubscriptionCate'
   ));
@@ -69,7 +69,7 @@ function post_subscription_data($user_id,$categoryid) {
 }
 // 获取订阅分类
 add_action( 'rest_api_init', function () {
-  register_rest_route( 'wechat/v1', 'category/getsubscription', array(
+  register_rest_route( 'wechat/v1', 'category/get', array(
     'methods' => 'GET',
     'callback' => 'getSubscription'
   ));
@@ -84,7 +84,7 @@ function getSubscription($request) {
             return new WP_Error( 'error', 'Not allowed to submit', array( 'status' => 500 ) );
         } else {
             $user_id =0;
-			$sql =$wpdb->prepare("SELECT ID FROM ".$wpdb->users ." WHERE user_login=%s",$openid);
+			$sql =$wpdb->prepare("SELECT ID FROM ".$wpdb->users ." WHERE user_login=%s",$openid); // 修复 SQL 注入漏洞
             $users = $wpdb->get_results($sql);
             foreach ($users as $user) {
                 $user_id = (int) $user->ID;
