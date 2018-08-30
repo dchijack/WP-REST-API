@@ -1,4 +1,12 @@
 <?php
+/*
+ * 
+ * WordPres 连接微信小程序
+ * Author: jianbo + 艾码汇
+ * github:  https://github.com/dchijack/WP-REST-API-PRO
+ * 基于 守望轩 WP REST API For App 开源插件定制
+ * 
+ */
 //获取是否启动小程序评论选项
 add_action( 'rest_api_init', function () {
   register_rest_route( 'wechat/v1', 'comment/setting', array(

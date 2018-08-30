@@ -1,4 +1,12 @@
 <?php
+/*
+ * 
+ * WordPres 连接微信小程序
+ * Author: jianbo + 艾码汇
+ * github:  https://github.com/dchijack/WP-REST-API-PRO
+ * 基于 守望轩 WP REST API For App 开源插件定制
+ * 
+ */
 // 插件参数选项
 include(WP_REST_API_PRO.'options.php');
 // 定义管理面板
