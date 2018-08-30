@@ -20,6 +20,6 @@
 
 ![WordPress Rest API Pro 设置截图](https://github.com/dchijack/WP-REST-API-PRO/blob/master/plugin.png)
 
-![WordPress Rest API Pro 设置截图](https://github.com/dchijack/WP-REST-API-PRO/blob/master/adsense.png)
+![WordPress Rest API Pro 设置截图](https://github.com/dchijack/WP-REST-API-PRO/blob/master/guanggao.png)
 
 ![WordPress Rest API Pro 设置截图](https://github.com/dchijack/WP-REST-API-PRO/blob/master/guide.png)
