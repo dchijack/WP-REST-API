@@ -131,7 +131,7 @@ function getmythumbsup($request) {
 }
 function post_my_thumbs_up_data($openid) {
     global $wpdb;
-    $sql=$wpdb->prepare("SELECT * from ".$wpdb->posts." where ID in (SELECT post_id from ".$wpdb->postmeta." where meta_value='thumbs' and meta_key='_%s') ORDER BY post_date desc LIMIT 20",$openid); 
+    $sql="SELECT * from ".$wpdb->posts." where ID in (SELECT post_id from ".$wpdb->postmeta." where meta_value='thumbs' and meta_key='_".$openid."') ORDER BY post_date desc LIMIT 20"; 
     $_posts = $wpdb->get_results($sql);
     $posts =array();
     foreach ($_posts as $post) {
