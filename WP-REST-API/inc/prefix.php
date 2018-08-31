@@ -39,8 +39,11 @@ function getPostQrcode($request) {
     }
 }
 function get_qrcode_data($postid,$path){
+	$uploads = wp_upload_dir();
+	$uploads_path = $uploads['basedir'] .'/qrcode/';
+	if (!is_dir($uploads_path)) {mkdir($uploads_path, 0777);}
 	$qrcode = 'qrcode-'.$postid.'.png';// 文章小程序二维码文件名     
-	$qrlink = ABSPATH .'/uploads/qrcode/'.$qrcode;// 文章小程序二维码路径，根目录 uploads 文件夹   
+	$qrlink = $uploads_path.$qrcode;// 文章小程序二维码路径
     $appid = get_setting_option('appid');
     $appsecret = get_setting_option('secretkey');
     if(!is_file($qrlink)) {
