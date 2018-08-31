@@ -2,6 +2,8 @@
 
 基于守望轩开源插件 https://github.com/iamxjb/wp-rest-api-for-app 定制 WordPress Rest API 插件。使用方法与守望轩开源插件有一定的差别，主要在于 API 地址及数据展示方面有差别，所以不适合与守望轩的开源版 WordPress 微信小程序配合使用。后期计划分享相应的开源小程序，WordPress + One 微信小程序（即V微语录相似）即将上传。
 
+如果你有使用 WPJAM BASIC 插件，推荐插件： https://github.com/dchijack/WPJAM-WP-REST-API 体验更佳，操作更友好
+
 技术支持：https://www.imahui.com
 
 # 微信小程序
