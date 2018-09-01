@@ -12,7 +12,7 @@
 
 # 基于此插件创建的小程序
 
-![V微语录](https://github.com/dchijack/WP-REST-API-PRO/blob/master/vyulu.jpg)  ![国际航空查询](https://github.com/dchijack/WP-REST-API-PRO/blob/master/cazixun.jpg)  ![艾码汇](https://github.com/dchijack/WP-REST-API-PRO/blob/master/imahui.jpg)
+![V微语录](https://github.com/dchijack/WP-REST-API/blob/master/vyulu.jpg)  ![国际航空查询](https://github.com/dchijack/WP-REST-API/blob/master/cazixun.jpg)  ![艾码汇](https://github.com/dchijack/WP-REST-API/blob/master/imahui.jpg)
 
 # 使用方法
 
