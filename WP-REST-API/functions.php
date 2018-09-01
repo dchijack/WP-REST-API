@@ -53,6 +53,24 @@ if (get_setting_option('qvideo')) {
 function get_setting_option($name) {
 	return get_option($name);
 }
+// 描述清理HTML标签
+if (get_setting_option('deletehtml')) {
+	function deletehtml($description) {
+		$description = trim($description);
+		$description = strip_tags($description,"");
+		return ($description);
+	}
+	add_filter('category_description', 'deletehtml');
+}
+// get_setting_option
+if (wp_get_option('reupload')) {
+	function git_upload_filter($file) {
+		$time = date("YmdHis");
+		$file['name'] = $time . "" . mt_rand(1, 100) . "." . pathinfo($file['name'], PATHINFO_EXTENSION);
+		return $file;
+	}
+	add_filter('wp_handle_upload_prefilter', 'git_upload_filter');
+}
 // 时间格式
 function time_tran($the_time) {
     $now_time = date("Y-m-d H:i:s",time()+8*60*60); 
