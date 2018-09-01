@@ -53,12 +53,6 @@ if (get_setting_option('qvideo')) {
 function get_setting_option($name) {
 	return get_option($name);
 }
-// 图片上传重命名
-function git_upload_filter($file) {
-    $time = date("YmdHis");
-    $file['name'] = $time . "" . mt_rand(1, 100) . "." . pathinfo($file['name'], PATHINFO_EXTENSION);
-    return $file;
-}
 // 时间格式
 function time_tran($the_time) {
     $now_time = date("Y-m-d H:i:s",time()+8*60*60); 
