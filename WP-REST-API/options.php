@@ -158,14 +158,14 @@ $options[] = array(
 $options[] = array(
 	"name" => "",
     "id" => "deletehtml",
-	"desc" => "是否开启清理分类描述 HTML 标签",
+	"desc" => "是否开启清理分类描述 HTML 标签,注意主题是否有冲突",
     "type" => "checkbox",
 	"std" => "false");
 	
 $options[] = array(
 	"name" => "",
     "id" => "reupload",
-	"desc" => "是否开启上传图片重命名(集成大胡子主题功能)注意主题是否有冲突",
+	"desc" => "是否开启上传图片重命名,注意主题是否有冲突",
     "type" => "checkbox",
 	"std" => "false");
 
