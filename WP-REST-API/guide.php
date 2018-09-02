@@ -8,7 +8,8 @@
  * 
  */
 $host = site_url();
-$page = '
+$api_about = '
+<h2>小程序 API</h2>
 <p>以下 API 属于自定义增强 API 。未有列明的 API ，可以登录 http://v2.wp-api.org/ 查阅</p>
 <h5>文章相关 API</h5>
 <p>随机文章 API：'.$host.'/wp-json/wechat/v1/views/random</p>
@@ -45,4 +46,11 @@ $page = '
 <p>列表页广告 API：'.$host.'/wp-json/wechat/v1/adsense/list</p>
 <p>开启详情页广告：'.$host.'/wp-json/wechat/v1/adenable/detail</p>
 <p>详情页广告 API：'.$host.'/wp-json/wechat/v1/adsense/detail</p>
+';
+$plugin_about = '
+<h2>关于 WordPress 连接微信小程序的插件</h2>
+<p><a href="https://www.imahui.com/design/840.html" target="_blank">WordPress 连接微信小程序的插件</a>是 <a href="https://www.imahui.com/" target="_blank">艾码汇</a> 基于守望轩开源插件 <a href="https://github.com/iamxjb/wp-rest-api-for-app">wp-rest-api-for-app</a> 整合定制优化版。部分功能与守望轩原版相同，但是整体的数据展现方式有所不同，以及后台设置分别采用 <a href="http://blog.wpjam.com/project/wpjam-basic/" target="_blank">WPJAM BASIC</a> 插件框架以及普通设置版本。</p>
+<h3>公众号</h3>
+<p>欢迎关注个人微信公众号，关于 WordPress 连接微信小程序的插件以及相关小程序，以后将会在这里第一时间发布。</p>
+<p><img src="https://www.imahui.com/uploads/gh_27bef5445476_258.jpg" /></p>
 ';

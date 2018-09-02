@@ -62,7 +62,7 @@ if (get_setting_option('deletehtml')) {
 	add_filter('category_description', 'deletehtml');
 }
 // get_setting_option
-if (wp_get_option('reupload')) {
+if (get_setting_option('reupload')) {
 	function git_upload_filter($file) {
 		$time = date("YmdHis");
 		$file['name'] = $time . "" . mt_rand(1, 100) . "." . pathinfo($file['name'], PATHINFO_EXTENSION);

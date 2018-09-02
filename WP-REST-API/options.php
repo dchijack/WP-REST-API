@@ -293,15 +293,29 @@ $options[] = array(
 $options[] = array(	"type" => "close");
 
 $options[] = array(
-	"name" => "API 说明",
+	"name" => "小程序 API",
 	"type" => "section");
 
 $options[] = array( "type" => "open");
 
 $options[] = array(
 	"name" => "",
-    "id" => "api_read",
-	"desc" => $page,
+    "id" => "api_about",
+	"desc" => $api_about,
+    "type" => "page");
+
+$options[] = array(	"type" => "close");
+
+$options[] = array(
+	"name" => "关于插件",
+	"type" => "section");
+
+$options[] = array( "type" => "open");
+
+$options[] = array(
+	"name" => "",
+    "id" => "plugin_about",
+	"desc" => $plugin_about,
     "type" => "page");
 
 $options[] = array(	"type" => "close");
