@@ -41,7 +41,6 @@ include(WP_REST_API_PRO.'inc/views.php');
 include(WP_REST_API_PRO.'inc/subscribe.php');
 include(WP_REST_API_PRO.'inc/random.php');
 include(WP_REST_API_PRO.'inc/adsense.php');
-include(WP_REST_API_PRO.'inc/praise.php');
 include(WP_REST_API_PRO.'inc/prefix.php');
 require WP_REST_API_PRO.'/inc/thumbnail.php';
 require WP_REST_API_PRO.'/inc/usermeta.php';

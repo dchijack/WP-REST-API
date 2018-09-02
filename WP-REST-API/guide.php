@@ -36,10 +36,6 @@ $page = '
 <p>微信 OPENID API：'.$host.'/wp-json/wechat/v1/user/openid</p>
 <h5>消息相关 API</h5>
 <p>发送消息 API：'.$host.'/wp-json/wechat/v1/message/send</p>
-<h5>赞赏相关 API</h5>
-<p>文章赞赏 API：'.$host.'/wp-json/wechat/v1/praise/post</p>
-<p>赞赏用户 API：'.$host.'/wp-json/wechat/v1/praise/user</p>
-<p>所有赞赏 API：'.$host.'/wp-json/wechat/v1/praise/all</p>
 <h5>海报相关 API</h5>
 <p>生成二维码 API：'.$host.'/wp-json/wechat/v1/qrcode/creat</p>
 <h5>广告相关 API</h5>

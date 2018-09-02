@@ -29,3 +29,9 @@
 ![WordPress Rest API Pro 设置截图](https://github.com/dchijack/WP-REST-API/blob/master/guanggao.png)
 
 ![WordPress Rest API Pro 设置截图](https://github.com/dchijack/WP-REST-API/blob/master/guide.png)
+
+# 更新日志
+
+2018.9.2
+
+> 移除所有赞赏 API
