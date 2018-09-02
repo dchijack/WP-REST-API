@@ -46,19 +46,18 @@ $options[] = array(
 	"std" => "");
 	
 $options[] = array(
+	"name" => "文章格式类型",
+    "id" => "formats",
+	"desc" => "aside, gallery, link, image, quote, status, video, audio, chat",
+    "type" => "text",
+	"std" => "");
+	
+$options[] = array(
 	"name" => "自定义栏目",
     "id" => "meta_list",
 	"desc" => "自定义标签 Key , 使用英文 ',' 逗号隔开;如有填写，请注意辅助选项不要禁止 meta 标签",
     "type" => "text",
 	"std" => "");
-	
-$options[] = array(
-	"name" => "赞赏消息",
-    "id" => "prasie",
-	"desc" => "用户赞赏后推送消息的感谢语",
-    "type" => "text",
-	"class" => "imglink",
-	"std" => "谢谢赞赏，你的赞赏是我前进的动力");
 	
 $options[] = array(
 	"name" => "微信用户分组",

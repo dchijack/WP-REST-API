@@ -12,7 +12,7 @@ include(WP_REST_API_PRO.'options.php');
 // 定义管理面板
 function setting_add_admin() {
 	global $themename;
-	add_menu_page($themename, "小程序", 'edit_themes', 'api-settings', 'settings_panel', 'dashicons-share-alt', 81);
+	add_menu_page($themename, "小程序", 'edit_themes', 'api-settings', 'settings_panel', 'dashicons-share-alt', 110.4);
 	add_action( 'admin_init', 'setting_add_init' );
 }
 add_action('admin_menu', 'setting_add_admin');
@@ -51,6 +51,11 @@ if (get_setting_option('qvideo')) {
 // 数据设置
 function get_setting_option($name) {
 	return get_option($name);
+}
+// 文章格式类型
+if (get_setting_option('formats')) {
+	$formats = wp_get_option('formats');
+	add_theme_support( 'post-formats', explode(',',$formats) );
 }
 // 描述清理HTML标签
 if (get_setting_option('deletehtml')) {
