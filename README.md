@@ -30,13 +30,13 @@
 
 ![WordPress Rest API Pro 设置截图](https://github.com/dchijack/WP-REST-API/blob/master/guide.png)
 
-# 更新日志
+## 更新日志
 
 2018.9.2
 
 > 移除所有赞赏 API
 
-# 微信公众号
+## 微信公众号
 
 > 欢迎关注个人微信公众号，扫描下方二维码。后期关于插件，小程序等信息，将第一时间发布在公众号或个人博客：https://www.imahui.com
 
