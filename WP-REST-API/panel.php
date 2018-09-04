@@ -1,11 +1,11 @@
 <?php
 /*
 Plugin Name: WP REST API
-Plugin URI: https://github.com/dchijack/WP-REST-API-PRO
-Description: WordPress REST API 定制版。WordPress + 微信小程序，优化代码，简化API。
-Version: 3.0
-Author: jianbo <a href="https://www.imahui.com">艾码汇</a> Date:2018.08.30
-Author URI: http://www.watch-life.net
+Plugin URI: https://github.com/dchijack/WP-REST-API
+Description: WordPress REST API 定制版。根据<a href="https://github.com/iamxjb/wp-rest-api-for-app" target="_blank">守望轩 WordPress 微信小程序开源插件</a>定制开发 - Date:2018.08.30
+Version: 1.0
+Author: 艾码汇
+Author URI: https://www.imahui.com/
 License: GPL v3
 */
 // 定义插件目录
