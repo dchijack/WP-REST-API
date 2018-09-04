@@ -114,20 +114,19 @@ function get_most_comments_post_data($limit = 10) {
 		if (get_setting_option('post_meta')) {
 			$_data["thumbnail"] = $post_thumbnail;
 			$_data["views"] = $post_views;
-		}
-		//--------------------自定义标签-----------------------------
-		if (!get_setting_option('post_meta')) {
+		} else {
+			//--------------------自定义标签-----------------------------
 			$_data["meta"]["thumbnail"] = $post_thumbnail;
 			$_data['meta']["views"] = $post_views;
-			$metastr = get_setting_option('meta_list');
-			if (!empty($metastr)) {
-				$metaarr = explode(',',$metastr);
-				foreach ($metaarr as $value) {
-					$_data["meta"][$value] = get_post_meta( $post_id, $value ,true );
+			$meta = get_setting_option('meta_list');
+			if (!empty($meta)) {
+				$metalist = explode(',',$meta);
+				foreach ($metalist as $key) {
+					$_data["meta"][$key] = get_post_meta( $post_id, $key ,true );
 				}
 			}
+			//-----------------------------------------------------------
 		}
-		//-----------------------------------------------------------
         $posts[] = $_data;   
     } 
 	return $posts;
@@ -178,20 +177,19 @@ function get_new_comments_post_data($limit = 10) {
 		if (get_setting_option('post_meta')) {
 			$_data["thumbnail"] = $post_thumbnail;
 			$_data["views"] = $post_views;
-		}
-		//--------------------自定义标签-----------------------------
-		if (!get_setting_option('post_meta')) {
+		} else {
+			//--------------------自定义标签-----------------------------
 			$_data["meta"]["thumbnail"] = $post_thumbnail;
 			$_data['meta']["views"] = $post_views;
-			$metastr = get_setting_option('meta_list');
-			if (!empty($metastr)) {
-				$metaarr = explode(',',$metastr);
-				foreach ($metaarr as $value) {
-					$_data["meta"][$value] = get_post_meta( $post_id, $value ,true );
+			$meta = get_setting_option('meta_list');
+			if (!empty($meta)) {
+				$metalist = explode(',',$meta);
+				foreach ($metalist as $key) {
+					$_data["meta"][$key] = get_post_meta( $post_id, $key ,true );
 				}
 			}
+			//-----------------------------------------------------------
 		}
-		//-----------------------------------------------------------
         $posts[] = $_data;             
     }
 	return $posts;    
@@ -431,11 +429,11 @@ function get_comment_data($openid){
 			if (!get_setting_option('post_meta')) {
 				$_data["meta"]["thumbnail"] = get_post_meta( $post->ID, 'thumbnail' ,true );
 				$_data['meta']["views"] = get_post_meta( $post->ID, 'views' ,true );
-				$metastr = get_setting_option('meta_list');
-				if (!empty($metastr)) {
-					$metaarr = explode(',',$metastr);
-					foreach ($metaarr as $value) {
-						$_data["meta"][$value] = get_post_meta( $post->ID, $value ,true );
+				$meta = get_setting_option('meta_list');
+				if (!empty($meta)) {
+					$metalist = explode(',',$meta);
+					foreach ($metalist as $key) {
+						$_data["meta"][$key] = get_post_meta( $post->ID, $key ,true );
 					}
 				}
 			} else {

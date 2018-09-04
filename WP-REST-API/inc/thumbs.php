@@ -140,20 +140,19 @@ function post_my_thumbs_up_data($openid) {
 		if (get_setting_option('post_meta')) {
 			$_data["thumbnail"] = get_post_thumbnail($post->ID);
 			$_data["views"] = (int)get_post_meta($post->ID, 'views',true);
-		}
-		//--------------------自定义标签-----------------------------
-		if (!get_setting_option('post_meta')) {
-			$_data["meta"]["thumbnail"] = get_post_thumbnail($post->ID);;
-			$_data['meta']["views"] = (int)get_post_meta($post->ID, 'views',true);
-			$metastr = get_setting_option('meta_list');
-			if (!empty($metastr)) {
-				$metaarr = explode(',',$metastr);
-				foreach ($metaarr as $value) {
-					$_data["meta"][$value] = get_post_meta( $post->ID, $value ,true );
+		} else {
+			//--------------------自定义标签-----------------------------
+			$_data["meta"]["thumbnail"] = $post_thumbnail;
+			$_data['meta']["views"] = $post_views;
+			$meta = get_setting_option('meta_list');
+			if (!empty($meta)) {
+				$metalist = explode(',',$meta);
+				foreach ($metalist as $key) {
+					$_data["meta"][$key] = get_post_meta( $post_id, $key ,true );
 				}
 			}
+			//-----------------------------------------------------------
 		}
-		//-----------------------------------------------------------
         $posts[]=$_data;
     }
     $result["code"]="success";
@@ -185,7 +184,6 @@ function get_most_thumbsed_post_data($limit = 10) {
 	global $wpdb, $post;
     $today = date("Y-m-d H:i:s"); // 获取今天日期时间   
     $limit_date=date("Y-m-d H:i:s", strtotime("-1 year"));  
-    //$sql="SELECT ".$wpdb->posts.".ID as ID, post_title, post_name, post_content, post_date, COUNT(".$wpdb->postmeta.".post_id) AS 'thumbs_total' FROM ".$wpdb->posts." LEFT JOIN ".$wpdb->postmeta." ON ".$wpdb->posts.".ID = ".$wpdb->postmeta.".post_id WHERE ".$wpdb->postmeta.".meta_value='thumbs' AND post_date BETWEEN '".$limit_date."'AND'".$today."'AND post_status ='publish' AND post_password ='' GROUP BY ".$wpdb->postmeta.".post_id ORDER BY thumbs_total DESC LIMIT ". $limit;
 	$sql=$wpdb->prepare("SELECT ".$wpdb->posts.".ID as ID, post_title, post_name, post_content, post_date, COUNT(".$wpdb->postmeta.".post_id) AS 'thumbs_total' FROM ".$wpdb->posts." LEFT JOIN ".$wpdb->postmeta." ON ".$wpdb->posts.".ID = ".$wpdb->postmeta.".post_id WHERE ".$wpdb->postmeta.".meta_value='thumbs' AND post_date BETWEEN '".$limit_date."'AND'".$today."'AND post_status ='publish' AND post_password ='' GROUP BY ".$wpdb->postmeta.".post_id ORDER BY thumbs_total DESC LIMIT %d",$limit);
     $mostthumbsed = $wpdb->get_results($sql);
     $posts =array();
@@ -211,20 +209,19 @@ function get_most_thumbsed_post_data($limit = 10) {
 		if (get_setting_option('post_meta')) {
 			$_data["thumbnail"] = $post_thumbnail;
 			$_data["views"] = $post_views;
-		}
-		//--------------------自定义标签-----------------------------
-		if (!get_setting_option('post_meta')) {
+		} else {
+			//--------------------自定义标签-----------------------------
 			$_data["meta"]["thumbnail"] = $post_thumbnail;
 			$_data['meta']["views"] = $post_views;
-			$metastr = get_setting_option('meta_list');
-			if (!empty($metastr)) {
-				$metaarr = explode(',',$metastr);
-				foreach ($metaarr as $value) {
-					$_data["meta"][$value] = get_post_meta( $post_id, $value ,true );
+			$meta = get_setting_option('meta_list');
+			if (!empty($meta)) {
+				$metalist = explode(',',$meta);
+				foreach ($metalist as $key) {
+					$_data["meta"][$key] = get_post_meta( $post_id, $key ,true );
 				}
 			}
+			//-----------------------------------------------------------
 		}
-		//-----------------------------------------------------------
         $posts[] = $_data;     
     } 
 	return $posts;     
