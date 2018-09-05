@@ -135,11 +135,14 @@ function post_my_thumbs_up_data($openid) {
     $_posts = $wpdb->get_results($sql);
     $posts =array();
     foreach ($_posts as $post) {
-        $_data["id"] = $post->ID;
+		$post_id = $post->ID;
+		$post_thumbnail = get_post_thumbnail($post_id);
+		$post_views = (int)get_post_meta($post_id, 'views',true);
+        $_data["id"] = $post_id;
         $_data["title"]["rendered"] = $post->post_title;
 		if (get_setting_option('post_meta')) {
-			$_data["thumbnail"] = get_post_thumbnail($post->ID);
-			$_data["views"] = (int)get_post_meta($post->ID, 'views',true);
+			$_data["thumbnail"] = $post_thumbnail;
+			$_data["views"] = $post_views;
 		} else {
 			//--------------------自定义标签-----------------------------
 			$_data["meta"]["thumbnail"] = $post_thumbnail;

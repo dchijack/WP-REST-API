@@ -424,21 +424,24 @@ function get_comment_data($openid){
 		$_posts = $wpdb->get_results($sql);
         $posts =array();
         foreach ($_posts as $post) {
-            $_data["id"]  = $post->ID;
+			$post_id = $post->ID;
+			$post_thumbnail = get_post_thumbnail($post_id);
+			$post_views = (int)get_post_meta($post_id, 'views',true);
+            $_data["id"]  = $post_id;
             $_data["title"]["rendered"] = $post->post_title;
 			if (!get_setting_option('post_meta')) {
-				$_data["meta"]["thumbnail"] = get_post_meta( $post->ID, 'thumbnail' ,true );
-				$_data['meta']["views"] = get_post_meta( $post->ID, 'views' ,true );
+				$_data["meta"]["thumbnail"] = $post_thumbnail;
+				$_data['meta']["views"] = $post_views;
 				$meta = get_setting_option('meta_list');
 				if (!empty($meta)) {
 					$metalist = explode(',',$meta);
 					foreach ($metalist as $key) {
-						$_data["meta"][$key] = get_post_meta( $post->ID, $key ,true );
+						$_data["meta"][$key] = get_post_meta( $post_id, $key ,true );
 					}
 				}
 			} else {
-				$_data["thumbnail"] = get_post_meta( $post->ID, 'thumbnail' ,true );
-				$_data["views"] = get_post_meta( $post->ID, 'views' ,true );
+				$_data["thumbnail"] = $post_thumbnail;
+				$_data["views"] = $post_views;
 			}
             $posts[]=$_data;
         }
