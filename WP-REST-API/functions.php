@@ -44,6 +44,7 @@ include(WP_REST_API_PRO.'inc/adsense.php');
 include(WP_REST_API_PRO.'inc/prefix.php');
 require WP_REST_API_PRO.'/inc/thumbnail.php';
 require WP_REST_API_PRO.'/inc/usermeta.php';
+require WP_REST_API_PRO.'/inc/custom.php';
 // 腾讯视频解析
 if (get_setting_option('qvideo')) {
 	include(WP_REST_API_PRO.'inc/video.php');

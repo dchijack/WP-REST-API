@@ -52,8 +52,7 @@ function get_swipe_post_data(){
 			if (get_setting_option('post_meta')) {
 				$_data["thumbnail"] = $post_thumbnail;
 				$_data["views"] = $post_views;
-			}
-			if (!get_setting_option('post_meta')) {
+			} else {
 				$_data["meta"]["thumbnail"] = $post_thumbnail;
 				$_data["meta"]["views"] = $post_views;
 			}

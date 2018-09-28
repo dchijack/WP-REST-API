@@ -170,6 +170,58 @@ $options[] = array(
 
 $options[] = array( "type" => "close");
 
+// 文章类型
+
+$options[] = array(
+	"name" => "文章类型",
+	"type" => "section");
+
+$options[] = array( "type" => "open");
+
+$options[] = array(
+	"name" => "类型名称",
+	"desc" => "自定义文章类型菜单名称",
+	"id" => "custom_menu",
+	"type" => "text",
+	"std" => "");
+	
+$options[] = array(
+	"name" => "类型别名",
+	"desc" => "自定义文章类型别名,建议英文或拼音",
+	"id" => "custom_singular",
+	"type" => "text",
+	"std" => "");
+	
+$options[] = array(
+	"name" => "分类别名",
+	"desc" => "自定义文章类型分类别名,建议英文或拼音",
+	"id" => "custom_category",
+	"type" => "text",
+	"std" => "");
+	
+$options[] = array(
+	"name" => "标签别名",
+	"desc" => "自定义文章类型标签别名,建议英文或拼音",
+	"id" => "custom_tags",
+	"type" => "text",
+	"std" => "");
+	
+$options[] = array(
+	"name" => "图标ICON",
+	"desc" => "Dashicons 图标, 访问 https://developer.wordpress.org/resource/dashicons/ 注意只需要 dashicons-图标名 即可",
+	"id" => "custom_icon",
+	"type" => "text",
+	"std" => "");
+	
+$options[] = array(
+	"name" => "支持类型",
+	"desc" => "title, editor, author, thumbnail, excerpt, trackbacks, custom-fields, comments, post-formats (注意使用英文逗号隔开)",
+	"id" => "custom_supports",
+	"type" => "text",
+	"std" => "");
+
+$options[] = array( "type" => "close");
+
 // 广告设置
 
 $options[] = array(
