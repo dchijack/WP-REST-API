@@ -107,6 +107,13 @@ $options[] = array(
 	
 $options[] = array(
 	"name" => "",
+    "id" => "post_content",
+	"desc" => "是否禁止文章列表输出 content 项目",
+    "type" => "checkbox",
+	"std" => "false");
+	
+$options[] = array(
+	"name" => "",
     "id" => "post_excerpt",
 	"desc" => "是否禁止文章输出 excerpt 摘要项目",
     "type" => "checkbox",
