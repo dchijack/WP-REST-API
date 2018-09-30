@@ -429,7 +429,10 @@ function get_comment_data($openid){
 			$post_views = (int)get_post_meta($post_id, 'views',true);
             $_data["id"]  = $post_id;
             $_data["title"]["rendered"] = $post->post_title;
-			if (!get_setting_option('post_meta')) {
+			if (get_setting_option('post_meta')) {
+				$_data["thumbnail"] = $post_thumbnail;
+				$_data["views"] = $post_views;
+			} else {
 				$_data["meta"]["thumbnail"] = $post_thumbnail;
 				$_data['meta']["views"] = $post_views;
 				$meta = get_setting_option('meta_list');
@@ -439,9 +442,6 @@ function get_comment_data($openid){
 						$_data["meta"][$key] = get_post_meta( $post_id, $key ,true );
 					}
 				}
-			} else {
-				$_data["thumbnail"] = $post_thumbnail;
-				$_data["views"] = $post_views;
 			}
             $posts[]=$_data;
         }

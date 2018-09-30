@@ -11,10 +11,10 @@
 add_action( 'rest_api_init', function () {
 	register_rest_route( 'wechat/v1', 'views/swipe', array(
 		'methods' => 'GET',
-		'callback' => 'getPostSwipe'
+		'callback' => 'get_post_by_swipe_id'
 	));
 });
-function getPostSwipe($request) {    
+function get_post_by_swipe_id($request) {    
     $data=get_swipe_post_data(); 
     if (empty($data)) {
         return new WP_Error( 'error', 'post swipe is error', array( 'status' => 404 ) );
@@ -25,18 +25,17 @@ function getPostSwipe($request) {
 }
 function get_swipe_post_data(){
 	global $wpdb;
-    $postSwipeIds = get_setting_option('swipe');
+	$Swipe =  get_setting_option('swipe');
+	$SwipeList  = explode(',',$meta);
 	$posts =array();    
-    if(!empty($postSwipeIds)) {
-		$sql=$wpdb->prepare("SELECT * from ".$wpdb->posts." where id in (%d)",$postSwipeIds);
-        $_posts = $wpdb->get_results($sql);
-        foreach ($_posts as $post) {
-			$post_id = (int)$post->ID;
+    if(!empty($Swipe)) {
+		foreach ($SwipeList as $SwipeList=>$post_id) {
+			$post = get_post($post_id);
 			$post_title = stripslashes($post->post_title);
 			$post_excerpt = $post->post_excerpt;
-			$post_views = (int)$post->views_total;
+			$post_views = (int)get_post_meta( $post_id, 'views' ,true );
 			$post_date = $post->post_date;
-			$post_permalink = get_permalink($post->ID);
+			$post_permalink = get_permalink($post_id);
 			$post_thumbnail = get_post_thumbnail($post_id);
 			$sql_thumbs = $wpdb->prepare("SELECT COUNT(1) FROM ".$wpdb->postmeta." where meta_value='thumbs' and post_id=%d",$post_id);
 			$post_thumbs = $wpdb->get_var($sql_thumbs);
@@ -56,7 +55,7 @@ function get_swipe_post_data(){
 				$_data["meta"]["thumbnail"] = $post_thumbnail;
 				$_data["meta"]["views"] = $post_views;
 			}
-			$posts[] = $_data;
+			$posts[] = $_data; 
         }
         $result["code"]="success";
         $result["message"]="get post swipe success  ";

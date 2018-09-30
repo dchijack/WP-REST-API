@@ -81,3 +81,37 @@ function post_custom_fields_rest($data, $post, $request) {
     $data->data = $_data; 
     return $data; 
 }
+// 定义是否开启投稿入口
+add_action( 'rest_api_init', function () {
+  register_rest_route( 'wechat/v1', 'creat/setting', array(
+    'methods' => 'GET',
+    'callback' => 'get_add_post_entry'    
+  ));
+});
+function get_add_post_entry($data) {
+	$data=get_enablePost_data(); 
+	if (empty($data)) {
+		return new WP_Error( 'no options', 'no options', array( 'status' => 404 ) );
+	} 
+	// Create the response object
+	$response = new WP_REST_Response( $data ); 
+	// Add a custom status code
+	$response->set_status( 200 );
+	return $response;
+}
+function get_enablePost_data() {
+    $en_posts=get_setting_option('enposts');
+    if ($en_posts) {
+        $result["code"]="success";
+        $result["message"]="get enablePost success";
+        $result["status"]="200";
+        $result["enablePost"]="true";
+        return $result;
+    } else {
+        $result["code"]="success";
+        $result["message"]="get enablePost success";
+        $result["status"]="200";
+        $result["enablePost"]="false";
+        return $result;
+    }
+}

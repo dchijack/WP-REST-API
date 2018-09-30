@@ -86,6 +86,13 @@ $options[] = array( "type" => "open");
 
 $options[] = array(
 	"name" => "",
+    "id" => "enposts",
+	"desc" => "是否开启小程序文章投稿",
+    "type" => "checkbox",
+	"std" => "false");
+
+$options[] = array(
+	"name" => "",
     "id" => "encomments",
 	"desc" => "是否开启小程序评论功能",
     "type" => "checkbox",
