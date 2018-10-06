@@ -156,6 +156,13 @@ $options[] = array(
 	
 $options[] = array(
 	"name" => "",
+    "id" => "list_content",
+	"desc" => "是否开启热门、点赞、随机文章列表内容",
+    "type" => "checkbox",
+	"std" => "false");
+	
+$options[] = array(
+	"name" => "",
     "id" => "post_prev",
 	"desc" => "是否开启文章输出上一篇及下一篇",
     "type" => "checkbox",
