@@ -16,6 +16,7 @@ function post_custom_fields_rest($data, $post, $request) {
     $post_views = (int)get_post_meta($post_id, 'views',true);
 	$post_thumbnail = get_post_thumbnail($post_id);
 	$post_comment = wp_count_comments($post_id);
+	//$content = $post->post_content;
 	$category = get_the_category($post_id);
 	$categoryId=$category[0]->term_id;
 	$next_post = get_next_post($categoryId, '', 'category');
@@ -31,9 +32,11 @@ function post_custom_fields_rest($data, $post, $request) {
 			$_avatarurl['avatar'] = get_user_meta( $userid->userID, 'wxavatar', true);
 			$avatarurls[] = $_avatarurl;       
 		}
+		$_data['avatar']= $avatarurls;
 	} else {
-		if (get_setting_option('post_content')) {unset($_data['content'] ); }	
+		if (get_setting_option('post_content')) { unset($_data['content'] ); }  	
 	}
+	//$_data['content']['rendered'] = $content;
 	$_data['category'] = $category[0]->cat_name;
 	$_data['comments'] = $post_comment->total_comments;
 	$_data['thumbses'] = $post_thumbs;
@@ -41,19 +44,16 @@ function post_custom_fields_rest($data, $post, $request) {
 		$_data["thumbnail"] = $post_thumbnail;
 		$_data["views"] = $post_views;
 	} else {
-		//--------------------自定义标签-----------------------------
 		$_data["meta"]["thumbnail"] = $post_thumbnail;
-		$_data['meta']["views"] = $post_views;
+		$_data["meta"]["views"] = $post_views;
 		$meta = get_setting_option('meta_list');
 		if (!empty($meta)) {
-			$metalist = explode(',',$meta);
-			foreach ($metalist as $key) {
+			foreach ($meta as $meta=>$key) {
 				$_data["meta"][$key] = get_post_meta( $post_id, $key ,true );
 			}
 		}
 		//-----------------------------------------------------------
 	}
-    $_data['avatar']= $avatarurls;
 	if (get_setting_option('post_prev')) {
 		$_data['next_id'] = !empty($next_post->ID)?$next_post->ID:null;
 		$_data['next_title'] = !empty($next_post->post_title)?$next_post->post_title:null;

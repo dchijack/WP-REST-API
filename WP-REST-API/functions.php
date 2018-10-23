@@ -12,7 +12,7 @@ include(WP_REST_API_PRO.'options.php');
 // 定义管理面板
 function setting_add_admin() {
 	global $themename;
-	add_menu_page($themename, "小程序", 'edit_themes', 'api-settings', 'settings_panel', 'dashicons-share-alt', 110.4);
+	add_menu_page($themename, "小程序", 'edit_themes', 'api-settings', 'settings_panel', 'dashicons-editor-code', 2);
 	add_action( 'admin_init', 'setting_add_init' );
 }
 add_action('admin_menu', 'setting_add_admin');

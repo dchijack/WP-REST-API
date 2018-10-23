@@ -6,7 +6,9 @@
 
 技术支持：https://www.imahui.com
 
-> 此插件基本没有计划增加新功能，主要是完善及修复问题。增加新功能计划，将重点放在 https://github.com/dchijack/WP-REST-API-PRO 这个插件上。
+> 此插件基本功能与 https://github.com/dchijack/WP-REST-API-PRO 相同，但是后台设置体验不佳，且此插件没有用户资料增加选项。
+
+> 开源插件的功能升级暂停了，除了修复 Bug 之外，暂且不打算增加新的功能拓展，目前正在准备着全新的 API 插件，计划放弃 WordPress REST API ，定制 API 更丰富好用。-- By 艾码汇@Chi 2018.10.23
 
 # 微信小程序
 
@@ -33,6 +35,10 @@
 ![WordPress Rest API Pro 设置截图](https://github.com/dchijack/WP-REST-API/blob/master/guide.png)
 
 ## 更新日志
+
+2018.10.23
+
+> 更新修复热门文章 API Bug ；
 
 2018.10.7
 
