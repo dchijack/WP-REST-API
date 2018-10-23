@@ -30,6 +30,8 @@
 
 ![WordPress Rest API Pro 设置截图](https://github.com/dchijack/WP-REST-API/blob/master/plugin.png)
 
+![WordPress Rest API Pro 设置截图](https://github.com/dchijack/WP-REST-API/blob/master/custom.png)
+
 ![WordPress Rest API Pro 设置截图](https://github.com/dchijack/WP-REST-API/blob/master/guanggao.png)
 
 ![WordPress Rest API Pro 设置截图](https://github.com/dchijack/WP-REST-API/blob/master/guide.png)
