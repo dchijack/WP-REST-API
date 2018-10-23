@@ -10,7 +10,7 @@
 // 插件参数选项
 include(WP_REST_API_PRO.'guide.php');
 $themename = "小程序设置选项";
-$version = "2018.8.30";
+$version = "2018.10";
 $options = array();
 $options[] = array (
 	"name" => $themename,
