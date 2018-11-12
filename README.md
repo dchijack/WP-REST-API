@@ -8,8 +8,6 @@
 
 > 此插件基本功能与 https://github.com/dchijack/WP-REST-API-PRO 相同，但是后台设置体验不佳，且此插件没有用户资料增加选项。
 
-> 开源插件的功能升级暂停了，除了修复 Bug 之外，暂且不打算增加新的功能拓展，目前正在准备着全新的 API 插件，计划放弃 WordPress REST API ，定制 API 更丰富好用。-- By 艾码汇@Chi 2018.10.23
-
 # 微信小程序
 
 > 支持 WordPress + One 微信小程序：https://github.com/dchijack/WordPress-One-MinAPP
@@ -37,6 +35,10 @@
 ![WordPress Rest API Pro 设置截图](https://github.com/dchijack/WP-REST-API/blob/master/guide.png)
 
 ## 更新日志
+
+2018.11.12
+
+> 优化函数，修复视频解析
 
 2018.10.29
 
@@ -91,3 +93,5 @@
 > 欢迎关注个人微信公众号，扫描下方二维码。后期关于插件，小程序等信息，将第一时间发布在公众号或个人博客：https://www.imahui.com
 
 ![微信公众号二维码](https://github.com/dchijack/WP-REST-API/blob/master/qrcode.jpg)
+
+![赞助](https://www.imahui.com/uploads/praise/praise.jpg)

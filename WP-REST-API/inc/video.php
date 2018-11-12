@@ -9,7 +9,7 @@
  */
 //解析腾讯视频，只支持一个腾讯视频
 function video_content_filter($content) {
-    preg_match('/https\:\/\/v.qq.com\/x\/(\S*)\/(\S*)\.html/',$content,$matches);
+    preg_match('/https\:\/\/v.qq.com\/x\/(\S*)\/(\S*)\.html/',deletehtml($content),$matches);
     if($matches) {
     	$vids=$matches[2];
 	    //  defaultfmt： 1080P-fhd，超清-shd，高清-hd，标清-sd
@@ -28,6 +28,4 @@ function video_content_filter($content) {
     	return $content;
     }    
 }
-if (has_post_format( 'video' )) {
-	add_filter( 'the_content', 'video_content_filter' );
-}
+add_filter( 'the_content', 'video_content_filter' );

@@ -10,21 +10,17 @@
 // 插件参数选项
 include(WP_REST_API_PRO.'options.php');
 // 定义管理面板
-function setting_add_admin() {
-	global $themename;
-	add_menu_page($themename, "小程序", 'edit_themes', 'api-settings', 'settings_panel', 'dashicons-editor-code', 2);
-	add_action( 'admin_init', 'setting_add_init' );
-}
-add_action('admin_menu', 'setting_add_admin');
-function setting_add_init() {
+add_action('admin_menu', function () {
+	add_menu_page('小程序设置选项', "小程序", 'edit_themes', 'api-settings', 'settings_panel', 'dashicons-editor-code', 2);
+});
+add_action('admin_init', function () {
 	global $options;
 	foreach ($options as $value) {
 		register_setting( 'apiset', $value['id'] );
 	}
 	wp_enqueue_style("tabs", plugins_url('',__FILE__)."/css/tabs.css", false, "1.0", "all");
 	wp_enqueue_script("tabs", plugins_url('',__FILE__)."/css/tabs.min.js", false, "1.0");
-}
-add_action('admin_init', 'setting_add_init');
+});
 function get_jquery_source() {
 	$url = plugins_url('',__FILE__);
 	echo '<script type="text/javascript" src="'.$url.'/css/jquery.min.js?ver=1.10.1"></script>';
@@ -59,12 +55,12 @@ if (get_setting_option('formats')) {
 	add_theme_support( 'post-formats', explode(',',$formats) );
 }
 // 描述清理HTML标签
+function deletehtml($description) {
+	$description = trim($description);
+	$description = strip_tags($description,"");
+	return ($description);
+}
 if (get_setting_option('deletehtml')) {
-	function deletehtml($description) {
-		$description = trim($description);
-		$description = strip_tags($description,"");
-		return ($description);
-	}
 	add_filter('category_description', 'deletehtml');
 }
 // get_setting_option
