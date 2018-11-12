@@ -44,11 +44,8 @@ $api_about = '
 <h5>海报相关 API</h5>
 <p>生成二维码 API：'.$host.'/wp-json/wechat/v1/qrcode/creat</p>
 <h5>广告相关 API</h5>
-<p>开启首页广告：'.$host.'/wp-json/wechat/v1/adenable/index</p>
 <p>首页广告 API：'.$host.'/wp-json/wechat/v1/adsense/index</p>
-<p>开启列表页广告：'.$host.'/wp-json/wechat/v1/adenable/list</p>
 <p>列表页广告 API：'.$host.'/wp-json/wechat/v1/adsense/list</p>
-<p>开启详情页广告：'.$host.'/wp-json/wechat/v1/adenable/detail</p>
 <p>详情页广告 API：'.$host.'/wp-json/wechat/v1/adsense/detail</p>
 ';
 $plugin_about = '
