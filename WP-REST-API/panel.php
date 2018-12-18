@@ -3,7 +3,7 @@
 Plugin Name: WP REST API
 Plugin URI: https://github.com/dchijack/WP-REST-API
 Description: WordPress REST API 定制版。参考 <a href="https://github.com/iamxjb/wp-rest-api-for-app" target="_blank">守望轩</a> 小程序开源插件定制开发
-Version: 2018.10
+Version: 2018.12
 Author: 艾码汇
 Author URI: https://www.imahui.com/
 License: GPL v3
