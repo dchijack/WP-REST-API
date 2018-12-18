@@ -8,7 +8,7 @@
 
 > 此插件与 https://github.com/dchijack/WP-REST-API-PRO 基本功能。
 
-> # 插件已停止更新维护，已经进行新版插件设计，如需了解，请访问个人博客：[https://www.imahui.com](https://www.imahui.com) . Date: 2018.12.18
+> ### 插件已停止更新维护，已经进行新版插件设计，如需了解，请访问个人博客：[https://www.imahui.com](https://www.imahui.com) . Date: 2018.12.18
 
 # 微信小程序
 
