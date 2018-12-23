@@ -10,6 +10,9 @@
 
 #### 插件停止更新维护，了解新版插件动态，请访问[个人博客](https://www.imahui.com)  Date: 2018.12.18
 
+> 加入知识星球获取新版 WP REST API 插件
+> ![知识星球](https://www.imahui.com/uploads/xiaomiq-code.jpg)
+
 # 微信小程序
 
 > 支持 WordPress + One 微信小程序：https://github.com/dchijack/WordPress-One-MinAPP
