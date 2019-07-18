@@ -1,44 +1,9 @@
 # WordPress 版微信小程序 API 增强优化版
 
-基于守望轩[开源插件](https://github.com/iamxjb/wp-rest-api-for-app)定制 WordPress Rest API 插件。使用方法与守望轩开源插件有一定的差别，主要在于 API 地址及数据展示方面有差别，所以不适合与守望轩的开源版 WordPress 微信小程序配合使用。
+> 插件已移除，新版开源插件请关注公众号 WordPressTalk 回复 9527 获取公测，后期将更新开源 Github Date:2019.07.18
 
-如果你有使用 WPJAM BASIC 插件，推荐插件： https://github.com/dchijack/WP-REST-API-PRO 体验更佳，操作更友好
+> 技术支持：https://www.imahui.com
 
-技术支持：https://www.imahui.com
-
-> 此插件与 https://github.com/dchijack/WP-REST-API-PRO 基本功能。
-
-#### 插件停止更新维护，了解新版插件动态，请访问[个人博客](https://www.imahui.com)  Date: 2018.12.18
-
-> 加入知识星球获取新版 WP REST API 插件
-
-> ![知识星球](https://www.imahui.com/uploads/xiaomiq-code.jpg)
-
-# 微信小程序
-
-> 支持 WordPress + One 微信小程序：https://github.com/dchijack/WordPress-One-MinAPP
-
-# 基于此插件创建的小程序
-
-![V微语录](https://github.com/dchijack/WP-REST-API/blob/master/vyulu.jpg)  ![国际航空查询](https://github.com/dchijack/WP-REST-API/blob/master/cazixun.jpg)  ![艾码汇](https://github.com/dchijack/WP-REST-API/blob/master/imahui.jpg)
-
-# 使用方法
-
-点击右上角绿色 Clone or download 下拉选项，点击 Download ZIP。
-
-解压下载的压缩包，把 WP-REST-API 目录上传至 WordPress 插件目录，并在网站后台插件启用。
-
-## 后台设置
-
-![WordPress Rest API Pro 设置截图](https://github.com/dchijack/WP-REST-API/blob/master/basic.png)
-
-![WordPress Rest API Pro 设置截图](https://github.com/dchijack/WP-REST-API/blob/master/plugin.png)
-
-![WordPress Rest API Pro 设置截图](https://github.com/dchijack/WP-REST-API/blob/master/custom.png)
-
-![WordPress Rest API Pro 设置截图](https://github.com/dchijack/WP-REST-API/blob/master/guanggao.png)
-
-![WordPress Rest API Pro 设置截图](https://github.com/dchijack/WP-REST-API/blob/master/guide.png)
 
 ## 更新日志
 
@@ -99,5 +64,7 @@
 > 欢迎关注个人微信公众号，扫描下方二维码。后期关于插件，小程序等信息，将第一时间发布在公众号或个人博客：https://www.imahui.com
 
 ![微信公众号二维码](https://github.com/dchijack/WP-REST-API/blob/master/qrcode.jpg)
+
+## 捐赠赞助作者
 
 ![赞助](https://www.imahui.com/uploads/praise/praise.jpg)
