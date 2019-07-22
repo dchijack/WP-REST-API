@@ -1,9 +1,12 @@
 # WordPress 版微信小程序 API 增强优化版
 
-> 插件已移除，新版开源插件请关注公众号 WordPressTalk 回复 9527 获取公测，后期将更新开源 Github Date:2019.07.18
+> 插件已移除，新版开源插件请关注公众号 WordPressTalk 回复 9527 或者访问 [点击这里](https://github.com/dchijack/wp-mini-program)
 
 > 技术支持：https://www.imahui.com
 
+# WordPress Mini Program API 插件正式开源发布
+
+> 获取新版 WordPress 连接小程序 API 插件，[点击这里](https://github.com/dchijack/wp-mini-program)
 
 ## 更新日志
 
